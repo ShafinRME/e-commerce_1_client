@@ -36,7 +36,7 @@ const Services = () => {
                                 key={idx}
                                 service={service}
                                 icon={iconMapping[service.icon]}
-                                bgColor={service.title === "Nationwide Delivery" ? "bg-secondary" : "bg-primary"}
+                            // bgColor={service.title === "Nationwide Delivery" ? "bg-secondary" : "bg-primary"}
                             ></Service>
                         )
                     })
