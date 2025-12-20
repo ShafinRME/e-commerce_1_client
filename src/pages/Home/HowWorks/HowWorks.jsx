@@ -19,7 +19,7 @@ const HowWorks = () => {
         setData(HowItWorksData);
     }, []);
     return (
-        <div className='w-15/16 mx-auto'>
+        <div data-aos="zoom-in-up" data-aos-duration="1500" className='w-15/16 mx-auto'>
             <h1 className='ml-10 text-3xl font-semibold'>How it Works</h1>
             <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
                 {data.map((item, index) => {

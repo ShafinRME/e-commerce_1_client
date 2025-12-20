@@ -15,7 +15,7 @@ const Features = () => {
 
 
     return (
-        <div className="flex flex-col w-15/16 mx-auto my-12 p-4 rounded-lg">
+        <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" className="flex flex-col w-15/16 mx-auto my-12 p-4 rounded-lg">
 
             <div className="grid grid-cols-1 gap-6 p-4">
                 {features.map((feature) => (

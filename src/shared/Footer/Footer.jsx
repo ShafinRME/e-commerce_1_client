@@ -6,7 +6,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 
 const Footer = () => {
     return (
-        <div className="flex flex-col min-h-screen">
+        <div data-aos="fade-up-right" data-aos-offset="300" data-aos-duration="2000" className="flex flex-col min-h-screen">
 
             <footer className="flex flex-col items-center justify-center gap-10 bg-base-200 text-neutral-content p-6 px-20 w-15/16  mt-auto mx-auto mb-6 rounded-3xl">
 

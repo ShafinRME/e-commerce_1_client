@@ -3,7 +3,7 @@ import merchantIcon from '../../../assets/location-merchant.png';
 
 const BeMarchant = () => {
     return (
-        <div className='flex flex-col lg:flex-row justify-center items-center  w-15/16 mx-auto my-12 p-4 rounded-3xl bg-base-200 text-primary bg-[url(assets/be-a-merchant-bg.png)] bg-no-repeat'>
+        <div data-aos="fade-up" data-aos-anchor-placement="center-center" data-aos-duration="1000" className='flex flex-col lg:flex-row justify-center items-center  w-15/16 mx-auto my-12 p-4 rounded-3xl bg-base-200 text-primary bg-[url(assets/be-a-merchant-bg.png)] bg-no-repeat'>
             < div className="w-full lg:w-1/2 p-8 pl-10" >
                 <h1 className='text-4xl font-bold'>Merchant and Customer Satisfaction is Our First Priority</h1>
                 <p className='text-accent mt-4'>

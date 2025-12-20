@@ -4,7 +4,7 @@ const FeatureCard = ({ feature }) => {
 
     const { title, description, imageUrl } = feature;
     return (
-        <div className="bg-white shadow-xl p-6 flex sm:flex-row sm:items-center sm:justify-start flex-col gap-6 rounded-xl">
+        <div data-aos="fade-right" data-aos-offset="300" data-aos-duration="1500" className="bg-white shadow-xl p-6 flex sm:flex-row sm:items-center sm:justify-start flex-col gap-6 rounded-xl">
             <div className='w-full sm:w-2/8 flex justify-center'>
                 <img src={imageUrl} alt={title} className="h-40 w-44 mb-4" />
             </div>
