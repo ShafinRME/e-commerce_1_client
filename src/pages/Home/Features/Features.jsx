@@ -22,6 +22,7 @@ const Features = () => {
                     <FeatureCard key={feature.id} feature={feature} />
                 ))}
             </div>
+            <hr className='w-15/16 mx-auto border-dashed border-gray-400 border-t-2 opacity-30 mt-14' />
         </div>
     );
 };

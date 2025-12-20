@@ -13,10 +13,12 @@ const FeatureCard = ({ feature }) => {
             <div className="w-full border-dashed sm:w-auto sm:h-32 sm:border-l-2 sm:border-gray-500 sm:mr-6 border-t-2 sm:border-t-0 border-gray-500"></div>
 
             <div className='w-full sm:w-6/8 flex flex-col justify-center items-start gap-2'>
-                <h2 className="text-2xl font-bold text-center lg:text-left ">{title}</h2>
+                <h2 className="text-2xl font-bold text-center sm:text-left ">{title}</h2>
 
-                <p className="text-accent text-center ">{description}</p>
+                <p className="text-accent text-center sm:text-left">{description}</p>
             </div>
+
+
         </div>
     );
 };
