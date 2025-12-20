@@ -15,10 +15,10 @@ const Navbar = () => {
 
     </>
     return (
-        <div className="navbar bg-base-100 shadow-sm w-15/16 mx-auto rounded-lg mb-6 ">
+        <div className="navbar bg-base-100 shadow-sm w-15/16 mx-auto rounded-lg mb-6 px-2 lg:px-6 ">
             <div className="navbar-start">
                 <div className="dropdown">
-                    <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+                    <div tabIndex={0} role="button" className="btn btn-secondary text-base-200 mr-6 lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /> </svg>
                     </div>
                     <ul
@@ -27,7 +27,7 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl"><Prologo /></a>
+                <NavLink to="/" className=" text-xl w-4 mb-4  lg:w-auto"><Prologo /></NavLink>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
