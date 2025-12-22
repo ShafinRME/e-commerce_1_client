@@ -35,7 +35,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end gap-4">
-                <button className="btn btn-primary text-base-200  border-gray-300">Sign In</button>
+                <button className="btn btn-primary text-base-200  border-gray-300"><NavLink to="/login">Sign In</NavLink></button>
                 <button className="btn btn-secondary text-base-200">Be a Rider</button>
                 <div className='bg-base-200 -rotate-45 rounded-full p-2 -ms-2' >
                     <FaArrowRight size={30} color='#CAEB66' />
