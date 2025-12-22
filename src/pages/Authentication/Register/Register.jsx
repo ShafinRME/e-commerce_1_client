@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 import './Register.css';
+import { FcGoogle } from 'react-icons/fc';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -19,6 +20,26 @@ const Register = () => {
             <div className='w-full lg:w-1/2'>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
+                        {/* Name Input */}
+                        <label className="label">Name</label>
+                        <input
+                            type="text"
+                            className="input w-2/3"
+                            placeholder="Name"
+                            {...register('name', {
+                                required: "Name is required",  // Custom error message
+                                pattern: {
+                                    value: /^[A-Za-z\s'-]+$/, // Allows letters, spaces, apostrophes, and hyphens (for names like O'Conner, John-Doe)
+                                    message: "Enter a valid name (letters, spaces, hyphens, or apostrophes only)"
+                                }
+                            })}
+                            aria-invalid={errors.name ? "true" : "false"}
+                        />
+                        {errors.name && (
+                            <p className='text-red-600' role="alert">{errors.name.message}</p>
+                        )}
+
+
                         {/* Email Input */}
                         <label className="label">Email</label>
                         <input
@@ -65,16 +86,22 @@ const Register = () => {
                         <div><a className="link link-hover">Forgot password?</a></div>
 
                         {/* Submit Button */}
-                        <button className="btn btn-secondary text-base-200 mt-4 w-2/3">Register</button>
+                        <button className="btn h-12 shadow-md hover:shadow-xl btn-secondary text-base-200 mt-4 w-2/3">Register</button>
                     </fieldset>
                 </form>
                 <p className='mt-4'>Already have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/login'>Login</NavLink> </span></p>
+                <div className="divider w-2/3">OR</div>
+                <button className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
+                    <FcGoogle size={25} />
+                    Register with Google
+                </button>
             </div>
 
             {/* Right Section: Image */}
             <div >
                 <img className='im-with' src="https://i.postimg.cc/gjmM6RDr/register.png" alt="Authentication" />
             </div>
+
         </div>
     );
 };

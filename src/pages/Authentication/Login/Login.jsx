@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { FcGoogle } from 'react-icons/fc';
 import { NavLink } from 'react-router';
 
 const Login = () => {
@@ -63,10 +64,15 @@ const Login = () => {
                         <div><a className="link link-hover">Forgot password?</a></div>
 
                         {/* Submit Button */}
-                        <button className="btn btn-secondary text-base-200 mt-4 w-2/3">Login</button>
+                        <button className="btn h-12 shadow-md hover:shadow-xl btn-secondary text-base-200 mt-4 w-2/3">Login</button>
                     </fieldset>
                 </form>
                 <p className='mt-4'>Don't have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/register'>Register</NavLink> </span></p>
+                <div className="divider w-2/3">OR</div>
+                <button className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
+                    <FcGoogle size={25} />
+                    Login with Google
+                </button>
             </div>
 
             {/* Right Section: Image */}
