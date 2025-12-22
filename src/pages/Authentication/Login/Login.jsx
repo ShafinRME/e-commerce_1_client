@@ -2,20 +2,37 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
 import { NavLink } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     // Use react-hook-form for handling the form
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { signInWithGoogle } = useAuth();
 
     // On form submit
     const onSubmit = data => {
         console.log(data);
     };
 
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
+
     return (
+
+
         <div className='flex flex-col lg:flex-row items-center justify-center mx-16 lg:mx-20 gap-0 w-full px-6'>
+
             {/* Left Section: Form */}
             <div className='w-full lg:w-1/2'>
+                <h1 className='text-5xl font-bold text-base-200 text-left'>Welcome Back</h1>
+                <p className='text-accent font-semibold mb-4 mt-2'>Login with Profast</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
                         {/* Email Input */}
@@ -69,7 +86,7 @@ const Login = () => {
                 </form>
                 <p className='mt-4'>Don't have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/register'>Register</NavLink> </span></p>
                 <div className="divider w-2/3">OR</div>
-                <button className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
+                <button onClick={handleGoogleSignIn} className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
                     <FcGoogle size={25} />
                     Login with Google
                 </button>
@@ -80,6 +97,7 @@ const Login = () => {
                 <img src="https://i.postimg.cc/503BTrBW/login.webp" alt="Authentication" />
             </div>
         </div>
+
     );
 };
 

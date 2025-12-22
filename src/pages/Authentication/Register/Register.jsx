@@ -3,14 +3,36 @@ import { useForm } from 'react-hook-form';
 import { NavLink } from 'react-router';
 import './Register.css';
 import { FcGoogle } from 'react-icons/fc';
+import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser, signInWithGoogle } = useAuth();
+
 
     // On form submit
     const onSubmit = data => {
         console.log(data);
+        const { email, password } = data;
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+
+            })
+            .catch(error => {
+                console.error(error);
+            })
     };
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(result => {
+                console.log(result.user);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+    }
 
 
 
@@ -18,6 +40,8 @@ const Register = () => {
         <div className='flex flex-col lg:flex-row items-center justify-center mx-16 lg:mx-20 gap-0 w-full px-6'>
             {/* Left Section: Form */}
             <div className='w-full lg:w-1/2'>
+                <h1 className='text-5xl font-bold text-base-200 text-left'>Create an Account</h1>
+                <p className='text-accent font-semibold mb-4 mt-2'>Register with Profast</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
                         {/* Name Input */}
@@ -91,7 +115,7 @@ const Register = () => {
                 </form>
                 <p className='mt-4'>Already have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/login'>Login</NavLink> </span></p>
                 <div className="divider w-2/3">OR</div>
-                <button className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
+                <button onClick={handleGoogleSignIn} className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
                     <FcGoogle size={25} />
                     Register with Google
                 </button>
