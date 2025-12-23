@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
@@ -10,6 +10,8 @@ const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { signInWithGoogle, signIn } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+
 
     // On form submit
     const onSubmit = data => {
@@ -18,7 +20,8 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 console.log(result.user);
-                navigate('/');
+                console.log(location);
+                navigate(location?.state || '/');
             })
             .catch(error => {
                 console.error(error);
@@ -30,6 +33,8 @@ const Login = () => {
         signInWithGoogle()
             .then(result => {
                 console.log(result.user);
+                console.log(location);
+                navigate(location?.state || '/');
             })
             .catch(error => {
                 console.error(error);
