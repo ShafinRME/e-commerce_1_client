@@ -4,6 +4,7 @@ import RootLayout from "../layouts/RootLayout";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
+import Coverage from "../pages/Coverage/Coverage";
 
 
 export const router = createBrowserRouter([
@@ -14,6 +15,11 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 Component: Home,
+            },
+            {
+                path: 'coverage',
+                Component: Coverage,
+                loader: () => fetch('/public/warehouses.json')
             }
         ]
     },
