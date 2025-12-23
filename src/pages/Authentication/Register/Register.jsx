@@ -1,27 +1,39 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import './Register.css';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../hooks/useAuth';
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, signInWithGoogle } = useAuth();
 
+    const navigate = useNavigate();
+
 
     // On form submit
     const onSubmit = data => {
-        console.log(data);
-        const { email, password } = data;
+        const { email, password, name, photo } = data;
+
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
+                const currentUser = result.user;
+                return updateProfile(currentUser, {
+                    displayName: name,
+                    photoURL: photo
+                });
+            })
+            .then(() => {
+                console.log("✅ User profile updated!");
+                navigate('/');
 
+                // Optionally: navigate('/'); or window.location.reload();
             })
             .catch(error => {
-                console.error(error);
-            })
+                console.error("❌ Error during user creation or update:", error);
+            });
     };
 
     const handleGoogleSignIn = () => {
@@ -40,7 +52,7 @@ const Register = () => {
         <div className='flex flex-col lg:flex-row items-center justify-center mx-16 lg:mx-20 gap-0 w-full px-6'>
             {/* Left Section: Form */}
             <div className='w-full lg:w-1/2'>
-                <h1 className='text-5xl font-bold text-base-200 text-left'>Create an Account</h1>
+                <h1 className='text-3xl lg:text-5xl font-bold text-base-200 text-left'>Create an Account</h1>
                 <p className='text-accent font-semibold mb-4 mt-2'>Register with Profast</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
@@ -61,6 +73,27 @@ const Register = () => {
                         />
                         {errors.name && (
                             <p className='text-red-600' role="alert">{errors.name.message}</p>
+                        )}
+
+                        <label className="label">Photo URL</label>
+                        <input
+                            type="url"
+                            className="input w-2/3"
+                            placeholder="https://example.com/photo.jpg"
+                            {...register('photo', {
+                                required: "Photo URL is required",
+                                pattern: {
+                                    value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i,
+                                    message: "Enter a valid image URL (jpg, jpeg, png, webp, gif)"
+                                }
+                            })}
+                            aria-invalid={errors.photo ? "true" : "false"}
+                        />
+
+                        {errors.photo && (
+                            <p className="text-red-600 text-sm mt-1" role="alert">
+                                {errors.photo.message}
+                            </p>
                         )}
 
 

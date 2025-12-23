@@ -1,9 +1,22 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink, useNavigate } from 'react-router';
 import Prologo from '../Prologo/Prologo';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaUserCircle } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 const Navbar = () => {
+
+    const { user, logOut } = useAuth();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await logOut();
+            navigate('/login'); // optional: redirect after logout
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
 
     // Active / inactive nav link styling
     const navLinkClass = ({ isActive }) =>
@@ -87,9 +100,9 @@ const Navbar = () => {
                     </ul>
                 </div>
 
-                <NavLink to="/" className="text-xl w-4 mb-4 lg:w-auto">
+                <Link to="/" className="text-xl w-4 mb-4 lg:w-auto">
                     <Prologo />
-                </NavLink>
+                </Link>
             </div>
 
             {/* Navbar Center (Desktop Menu) */}
@@ -100,18 +113,41 @@ const Navbar = () => {
             </div>
 
             {/* Navbar End */}
+            {/* Navbar End */}
             <div className="navbar-end gap-4">
-                <NavLink to="/login" className="btn btn-primary text-base-200 border-gray-300">
-                    Sign In
-                </NavLink>
+                <Link to="/rider">
+                    <button className="btn btn-secondary text-base-200">
+                        Be a Rider
+                    </button>
+                </Link>
+                {!user ? (
+                    <Link to="/login" className="btn btn-primary text-base-200 border-gray-300">
+                        Sign In
+                    </Link>
 
-                <button className="btn btn-secondary text-base-200">
-                    Be a Rider
-                </button>
 
-                <div className="bg-base-200 -rotate-45 rounded-full p-2 -ms-2">
-                    <FaArrowRight size={30} color="#CAEB66" />
-                </div>
+                ) : (
+                    <>
+                        <button onClick={handleLogout} className="btn btn-primary text-base-200 border-gray-300">
+                            Logout
+                        </button>
+
+                        {/* Profile Image or Fallback */}
+                        <div className="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+                            {user.photoURL ? (
+                                <img
+                                    src={user.photoURL}
+                                    alt="User"
+                                    onError={(e) => (e.target.src = "/public/defaultUser.png")}
+                                    className="w-full h-full object-cover"
+                                />
+                            ) : (
+                                <FaUserCircle size={40} className="text-secondary" />
+                            )}
+                        </div>
+                    </>
+                )}
+
             </div>
         </div>
     );

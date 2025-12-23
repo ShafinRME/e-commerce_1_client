@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FcGoogle } from 'react-icons/fc';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     // Use react-hook-form for handling the form
+    const [loginError, setLoginError] = useState('');
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { signInWithGoogle } = useAuth();
+    const { signInWithGoogle, signIn } = useAuth();
+    const navigate = useNavigate();
 
     // On form submit
     const onSubmit = data => {
         console.log(data);
+        const { email, password } = data;
+        signIn(email, password)
+            .then(result => {
+                console.log(result.user);
+                navigate('/');
+            })
+            .catch(error => {
+                console.error(error);
+                setLoginError("Invalid email or password.");
+            });
     };
 
     const handleGoogleSignIn = () => {
@@ -31,7 +43,7 @@ const Login = () => {
 
             {/* Left Section: Form */}
             <div className='w-full lg:w-1/2'>
-                <h1 className='text-5xl font-bold text-base-200 text-left'>Welcome Back</h1>
+                <h1 className='text-3xl lg:text-5xl font-bold text-base-200 text-left'>Welcome Back</h1>
                 <p className='text-accent font-semibold mb-4 mt-2'>Login with Profast</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
@@ -82,6 +94,7 @@ const Login = () => {
 
                         {/* Submit Button */}
                         <button className="btn h-12 shadow-md hover:shadow-xl btn-secondary text-base-200 mt-4 w-2/3">Login</button>
+                        {loginError && <p className="text-red-600 mt-2">{loginError}</p>}
                     </fieldset>
                 </form>
                 <p className='mt-4'>Don't have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/register'>Register</NavLink> </span></p>
