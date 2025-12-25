@@ -6,6 +6,7 @@ import Login from "../pages/Authentication/Login/Login";
 import Register from "../pages/Authentication/Register/Register";
 import Coverage from "../pages/Coverage/Coverage";
 import PrivateRoute from "../routes/PrivateRoute";
+import SendParcel from "../pages/SendParcel/SendParcel";
 
 
 export const router = createBrowserRouter([
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
             {
                 path: 'coverage',
                 element: <PrivateRoute> <Coverage /> </PrivateRoute>,
+                loader: () => fetch('/public/warehouses.json')
+            },
+            {
+                path: 'sendParcel',
+                element: <PrivateRoute> <SendParcel></SendParcel> </PrivateRoute>,
                 loader: () => fetch('/public/warehouses.json')
             }
         ]

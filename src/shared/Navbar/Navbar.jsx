@@ -22,21 +22,23 @@ const Navbar = () => {
     const navLinkClass = ({ isActive }) =>
         isActive
             ? "bg-secondary text-base-200 font-bold rounded-lg px-4 py-2"
-            : "px-4 py-2 font-semibold  rounded-lg hover:bg-accent hover:text-base-200 transition duration-300";
+            : "px-4 py-2 font-semibold  rounded-lg hover:bg-primary hover:text-base-200 transition duration-300";
 
     const navItems = (
         <>
-            <li>
-                <NavLink to="/services" className={navLinkClass}>
-                    Services
-                </NavLink>
-            </li>
 
             <li>
                 <NavLink to="/" end className={navLinkClass}>
                     Home
                 </NavLink>
             </li>
+
+            <li>
+                <NavLink to="/services" className={navLinkClass}>
+                    Services
+                </NavLink>
+            </li>
+
 
             <li>
                 <NavLink to="/coverage" className={navLinkClass}>
@@ -51,7 +53,7 @@ const Navbar = () => {
             </li>
 
             <li>
-                <NavLink to="/pricing" className={navLinkClass}>
+                <NavLink to="/sendParcel" className={navLinkClass}>
                     Pricing
                 </NavLink>
             </li>
