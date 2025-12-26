@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router';
 import Prologo from '../shared/Prologo/Prologo';
+import { FaBoxOpen, FaHome, FaMoneyCheckAlt, FaSearchLocation, FaUserEdit } from 'react-icons/fa';
 
 const DashboardLayout = () => {
     return (
@@ -40,8 +41,38 @@ const DashboardLayout = () => {
                 <ul className="menu bg-base-300 text-base-content min-h-full w-80 p-4 flex flex-col gap-2">
                     {/* Sidebar content here */}
                     <Prologo></Prologo>
-                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'><a>Home</a></li>
-                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'><NavLink to="/dashboard/myParcels">My Parcels</NavLink></li>
+                    <hr className='my-2' />
+
+                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'>
+                        <NavLink to="/dashboard">
+                            <FaHome className="inline-block mr-2" />
+                            Home
+                        </NavLink>
+                    </li>
+                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'>
+                        <NavLink to="/dashboard/myParcels">
+                            <FaBoxOpen className="inline-block mr-2" />
+                            My Parcels
+                        </NavLink>
+                    </li>
+                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'>
+                        <NavLink to="/dashboard/paymentHistory">
+                            <FaMoneyCheckAlt className="inline-block mr-2" />
+                            Payment History
+                        </NavLink>
+                    </li>
+                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'>
+                        <NavLink to="/dashboard/track">
+                            <FaSearchLocation className="inline-block mr-2" />
+                            Track a Package
+                        </NavLink>
+                    </li>
+                    <li className='hover:bg-base-200 hover:text-white bg-primary rounded-lg'>
+                        <NavLink to="/dashboard/profile">
+                            <FaUserEdit className="inline-block mr-2" />
+                            Update Profile
+                        </NavLink>
+                    </li>
                 </ul>
             </div>
         </div>
