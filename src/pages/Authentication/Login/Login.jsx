@@ -11,6 +11,7 @@ const Login = () => {
     const { signInWithGoogle, signIn } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
+    const from = location.state?.from || '/';
 
 
     // On form submit
@@ -20,8 +21,7 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 console.log(result.user);
-                console.log(location);
-                navigate(location?.state || '/');
+                navigate(from);
             })
             .catch(error => {
                 console.error(error);
@@ -34,7 +34,7 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 console.log(location);
-                navigate(location?.state || '/');
+                navigate(from);
             })
             .catch(error => {
                 console.error(error);

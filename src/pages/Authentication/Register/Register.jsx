@@ -1,50 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router';
+import { NavLink, useLocation, useNavigate } from 'react-router';
 import './Register.css';
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../hooks/useAuth';
 import { updateProfile } from 'firebase/auth';
+import axios from 'axios';
+import useAxios from '../../../hooks/useAxios';
 
 const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const { createUser, signInWithGoogle } = useAuth();
+    const { createUser, signInWithGoogle, updateUserProfile } = useAuth();
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const [profilePic, setProfilePic] = useState('');
+    const axiosInstance = useAxios();
+    const from = location.state?.from || '/';
 
 
     // On form submit
     const onSubmit = data => {
-        const { email, password, name, photo } = data;
 
-        createUser(email, password)
-            .then(result => {
-                const currentUser = result.user;
-                return updateProfile(currentUser, {
-                    displayName: name,
-                    photoURL: photo
-                });
-            })
-            .then(() => {
-                console.log("✅ User profile updated!");
-                navigate('/');
+        console.log(data);
 
-                // Optionally: navigate('/'); or window.location.reload();
-            })
-            .catch(error => {
-                console.error("❌ Error during user creation or update:", error);
-            });
-    };
-
-    const handleGoogleSignIn = () => {
-        signInWithGoogle()
-            .then(result => {
+        createUser(data.email, data.password)
+            .then(async (result) => {
                 console.log(result.user);
+                navigate(from);
+
+                // update userinfo in the database
+                const userInfo = {
+                    email: data.email,
+                    role: 'user', // default role
+                    created_at: new Date().toISOString(),
+                    last_log_in: new Date().toISOString()
+                }
+
+                const userRes = await axiosInstance.post('/users', userInfo);
+                console.log(userRes.data);
+
+                // update user profile in firebase
+                const userProfile = {
+                    displayName: data.name,
+                    photoURL: profilePic
+                }
+                updateUserProfile(userProfile)
+                    .then(() => {
+                        console.log('profile name pic updated')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
             })
             .catch(error => {
                 console.error(error);
             })
     }
+
+    const handleGoogleSignIn = () => {
+        signInWithGoogle()
+            .then(async (result) => {
+                const user = result.user;
+                console.log(result.user);
+                // update userinfo in the database
+                const userInfo = {
+                    email: user.email,
+                    role: 'user', // default role
+                    created_at: new Date().toISOString(),
+                    last_log_in: new Date().toISOString()
+                }
+
+                const res = await axiosInstance.post('/users', userInfo);
+                console.log('user update info', res.data)
+
+                navigate(from);
+            })
+            .catch(error => {
+                console.error(error);
+            })
+
+    }
+
+    const handleImageUpload = async (e) => {
+        const image = e.target.files[0];
+        console.log(image)
+
+        const formData = new FormData();
+        formData.append('image', image);
+
+
+        const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_upload_key}`
+        const res = await axios.post(imagUploadUrl, formData)
+
+        setProfilePic(res.data.data.url);
+
+    }
+
 
 
 
@@ -56,45 +109,20 @@ const Register = () => {
                 <p className='text-accent font-semibold mb-4 mt-2'>Register with Profast</p>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <fieldset className="fieldset">
-                        {/* Name Input */}
-                        <label className="label">Name</label>
-                        <input
-                            type="text"
-                            className="input w-2/3"
-                            placeholder="Name"
-                            {...register('name', {
-                                required: "Name is required",  // Custom error message
-                                pattern: {
-                                    value: /^[A-Za-z\s'-]+$/, // Allows letters, spaces, apostrophes, and hyphens (for names like O'Conner, John-Doe)
-                                    message: "Enter a valid name (letters, spaces, hyphens, or apostrophes only)"
-                                }
-                            })}
-                            aria-invalid={errors.name ? "true" : "false"}
-                        />
-                        {errors.name && (
-                            <p className='text-red-600' role="alert">{errors.name.message}</p>
-                        )}
+                        {/* name field */}
+                        <label className="label">Your Name</label>
+                        <input type="text"
+                            {...register('name', { required: true })}
+                            className="input w-2/3" placeholder="Your Name" />
+                        {
+                            errors.name?.type === 'required' && <p className='text-red-500'>Name is required</p>
+                        }
+                        {/* Photo field */}
+                        <label className="label">Your Profile Picture</label>
+                        <input type="file"
+                            onChange={handleImageUpload}
+                            className="input w-2/3" placeholder="Your Profile picture" />
 
-                        <label className="label">Photo URL</label>
-                        <input
-                            type="url"
-                            className="input w-2/3"
-                            placeholder="https://example.com/photo.jpg"
-                            {...register('photo', {
-                                required: "Photo URL is required",
-                                pattern: {
-                                    value: /^(https?:\/\/.*\.(?:png|jpg|jpeg|gif|webp))$/i,
-                                    message: "Enter a valid image URL (jpg, jpeg, png, webp, gif)"
-                                }
-                            })}
-                            aria-invalid={errors.photo ? "true" : "false"}
-                        />
-
-                        {errors.photo && (
-                            <p className="text-red-600 text-sm mt-1" role="alert">
-                                {errors.photo.message}
-                            </p>
-                        )}
 
 
                         {/* Email Input */}
