@@ -96,6 +96,7 @@ const Register = () => {
 
         setProfilePic(res.data.data.url);
 
+
     }
 
 

@@ -69,12 +69,6 @@ const Navbar = () => {
                     Pricing
                 </NavLink>
             </li>
-
-            <li>
-                <NavLink to="/rider" className={navLinkClass}>
-                    Be a Rider
-                </NavLink>
-            </li>
         </>
     );
 
@@ -129,8 +123,8 @@ const Navbar = () => {
             {/* Navbar End */}
             {/* Navbar End */}
             <div className="navbar-end gap-4">
-                <Link to="/rider">
-                    <button className="btn btn-secondary text-base-200">
+                <Link to="/beARider">
+                    <button className="btn btn-base-300 text-white">
                         Be a Rider
                     </button>
                 </Link>
