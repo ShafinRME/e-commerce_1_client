@@ -3,6 +3,7 @@ import { FaMotorcycle } from "react-icons/fa";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import Loader from "../../../shared/Loader/Loader";
 
 const AssignRider = () => {
     const axiosSecure = useAxiosSecure();
@@ -118,7 +119,7 @@ const AssignRider = () => {
                             </h3>
 
                             {loadingRiders ? (
-                                <p>Loading riders...</p>
+                                <Loader></Loader>
                             ) : riders.length === 0 ? (
                                 <p className="text-error">No available riders in this district.</p>
                             ) : (
