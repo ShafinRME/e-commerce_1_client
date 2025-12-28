@@ -87,7 +87,7 @@ const MyParcels = () => {
                     {parcels.map((parcel, index) => (
                         <tr key={parcel._id} className={index % 2 === 0 ? "bg-slate-200" : "bg-slate-300"}>
                             <td>{index + 1}</td>
-                            <td className="max-w-[180px] truncate">{parcel.title}</td>
+                            <td className="max-w-45 truncate">{parcel.title}</td>
                             <td className="capitalize">{parcel.type}</td>
                             <td>{formatDate(parcel.creation_date)}</td>
                             <td>৳{parcel.cost}</td>

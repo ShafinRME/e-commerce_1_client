@@ -27,7 +27,7 @@ const Register = () => {
         createUser(data.email, data.password)
             .then(async (result) => {
                 console.log(result.user);
-                navigate(from);
+
 
                 // update userinfo in the database
                 const userInfo = {
@@ -48,6 +48,7 @@ const Register = () => {
                 updateUserProfile(userProfile)
                     .then(() => {
                         console.log('profile name pic updated')
+                        navigate(from);
                     })
                     .catch(error => {
                         console.log(error)

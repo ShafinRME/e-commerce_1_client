@@ -102,7 +102,7 @@ const Login = () => {
                         {loginError && <p className="text-red-600 mt-2">{loginError}</p>}
                     </fieldset>
                 </form>
-                <p className='mt-4'>Don't have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink to='/register'>Register</NavLink> </span></p>
+                <p className='mt-4'>Don't have an account ?<span className='text-blue-600 font-semibold link link-hover ml-2'><NavLink state={{ from }} to='/register'>Register</NavLink> </span></p>
                 <div className="divider w-2/3">OR</div>
                 <button onClick={handleGoogleSignIn} className=" flex justify-center items-center h-12 font-semibold text-base-200 gap-2 rounded-lg border-none w-2/3 bg-white  shadow-md hover:shadow-xl  hover:bg-secondary hover:text-base-200">
                     <FcGoogle size={25} />
