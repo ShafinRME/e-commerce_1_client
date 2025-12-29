@@ -74,9 +74,9 @@ const PendingDeliveries = () => {
             ) : parcels.length === 0 ? (
                 <p className="text-gray-500">No assigned deliveries.</p>
             ) : (
-                <div className="overflow-x-auto">
-                    <table className="table table-zebra w-full">
-                        <thead>
+                <div className="shadow-md  bg-white">
+                    <table className="table  w-full">
+                        <thead className="bg-base-200 text-white font-semibold">
                             <tr>
                                 <th>Tracking ID</th>
                                 <th>Title</th>
@@ -89,8 +89,8 @@ const PendingDeliveries = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {parcels.map((parcel) => (
-                                <tr key={parcel._id}>
+                            {parcels.map((parcel, index) => (
+                                <tr key={parcel._id} className={index % 2 === 0 ? "bg-slate-200" : "bg-slate-300"}>
                                     <td>{parcel.tracking_id}</td>
                                     <td>{parcel.title}</td>
                                     <td>{parcel.type}</td>
