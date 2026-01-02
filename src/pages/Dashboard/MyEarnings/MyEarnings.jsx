@@ -60,15 +60,15 @@ const MyEarnings = () => {
             ) : (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div className="bg-base-200 p-4 rounded-xl shadow">
+                        <div className="bg-accent p-4 rounded-xl shadow">
                             <p className="text-lg font-semibold">Total Earnings</p>
-                            <p className="text-2xl font-bold text-green-600">৳{total.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-primary">৳{total.toFixed(2)}</p>
                         </div>
-                        <div className="bg-base-200 p-4 rounded-xl shadow">
+                        <div className="bg-accent p-4 rounded-xl shadow">
                             <p className="text-lg font-semibold">Cashed Out</p>
-                            <p className="text-2xl font-bold text-blue-600">৳{totalCashedOut.toFixed(2)}</p>
+                            <p className="text-2xl font-bold text-secondary">৳{totalCashedOut.toFixed(2)}</p>
                         </div>
-                        <div className="bg-base-200 p-4 rounded-xl shadow">
+                        <div className="bg-accent p-4 rounded-xl shadow">
                             <p className="text-lg font-semibold">Pending</p>
                             <p className="text-2xl font-bold text-yellow-600">৳{totalPending.toFixed(2)}</p>
                         </div>

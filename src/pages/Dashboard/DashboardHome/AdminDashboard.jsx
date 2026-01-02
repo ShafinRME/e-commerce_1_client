@@ -74,11 +74,11 @@ export default function AdminDashboard() {
     return (
         <div className="p-6">
             <h1 className="text-3xl font-bold mb-6">Parcel Delivery Summary</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
                 {deliveryStatus.map(({ count, status }) => (
                     <div
                         key={status}
-                        className="card bg-base-100 shadow-md border border-base-200 flex flex-col items-center justify-center p-6"
+                        className="card bg-base-100 shadow-md  flex flex-col items-center justify-center p-6"
                     >
                         {statusIcons[status] || <FaBoxOpen className="text-4xl" />}
                         <h2 className="text-lg font-semibold mt-3 text-center">

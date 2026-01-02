@@ -24,6 +24,7 @@ import PendingDeliveries from "../pages/Dashboard/PendingDeliveries/PendingDeliv
 import CompletedDeliveries from "../pages/Dashboard/CompletedDeliveries/CompletedDeliveries";
 import MyEarnings from "../pages/Dashboard/MyEarnings/MyEarnings";
 import DashboardHome from "../pages/Dashboard/DashboardHome/DashboardHome";
+import About from "../pages/AboutUs/About";
 
 
 export const router = createBrowserRouter([
@@ -40,6 +41,14 @@ export const router = createBrowserRouter([
                 element: <PrivateRoute> <Coverage /> </PrivateRoute>,
                 loader: () => fetch('/public/warehouses.json')
             },
+
+            {
+                path: "about",
+                Component: About,
+                loader: () => fetch("/public/aboutdata.json"),
+            },
+
+
             {
                 path: 'forbidden',
                 Component: Forbidden,
